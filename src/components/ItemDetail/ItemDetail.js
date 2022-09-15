@@ -1,9 +1,13 @@
 import Contador from "../Counter/Counter";
+import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useCartContext } from '../../context/CartContext';
 import Select from "../Select/Select";
 
 const ItemDetail = ({item}) => {
 
+    const{cart, addToCart, isInCart} = useCartContext()
+    
     const [cantidad, setCantidad] = useState(1)
     const [variante, setVariante] = useState(item.variant[0].value)
     
@@ -15,7 +19,7 @@ const ItemDetail = ({item}) => {
             variante,
             cantidad
         }
-        console.log(itemToCart)
+        addToCart(itemToCart)
     }
 
     return(
@@ -31,12 +35,17 @@ const ItemDetail = ({item}) => {
                 <h1 className="container-selector">
                     <Select options={item.variant} onSelect={setVariante}/>
                 </h1><hr/>
-                <h1 className="container-detail-contador">
+                {
+                    isInCart(item.id)
+                    ? <Link to="/cart">Terminar mi compra</Link>
+                    : <h1 className="container-detail-contador">
                     <Contador max={item.stock}
                               contador={cantidad}
                               setCounter={setCantidad}
                               handleAgregar={handleAgregar}/>
-                </h1>
+                    </h1>
+                }
+                
             </div>  
         </div>
     )

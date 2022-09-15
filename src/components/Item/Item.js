@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Contador from "../Counter/Counter";
 
 const Item = ({producto}) => {
 
@@ -13,7 +12,6 @@ const Item = ({producto}) => {
                     <div>
                         <h2 className="info-precio">Precio: AR$ {producto.precio}</h2>
                     </div>
-                    <Contador></Contador><hr/>
                     <div className="ver-mas"><Link to={`/item/${producto.id}`} className="ver-mas-button">Ver detalles...</Link></div>
                 </div>
             </div>
